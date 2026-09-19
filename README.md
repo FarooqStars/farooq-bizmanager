@@ -12,6 +12,10 @@
 </p>
 
 <p align="center">
+  <a href="https://farooq-bizmanager-demo.vercel.app"><b>🟢 Live demo — try it now</b></a> · no sign-up, invented data, reset every night
+</p>
+
+<p align="center">
   <img src="public/brand/hero.jpg" alt="Farooq BizManager on a laptop and tablet" width="820">
 </p>
 
@@ -99,12 +103,15 @@ language.
 
 ## Getting started
 
-👉 **[Installation guide — step by step](docs/INSTALL.md)**
+👉 **[Installation guide — step by step, with pictures](docs/INSTALL.md)**
 ([اردو](docs/INSTALL.ur.md) · [العربية](docs/INSTALL.ar.md))
 
 The easy way needs no programming and costs nothing: three free accounts
 (GitHub, Convex, Vercel), about 20 minutes, and you have your own private
 business system on the internet.
+
+👉 **[Running it on your own server](docs/SELF-HOSTING.md)** — server, domain,
+backups, updates and security ([اردو](docs/SELF-HOSTING.ur.md) · [العربية](docs/SELF-HOSTING.ar.md))
 
 ## How it works (for technical readers)
 
