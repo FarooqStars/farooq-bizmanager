@@ -1130,5 +1130,9 @@
   "auth.errNetwork": "Cannot reach the server. Check your internet connection and try again.",
   "auth.errSetupDone": "Setup is already complete. Please sign in.",
   "auth.errUnknown": "Something went wrong. Please try again.",
-  "auth.language": "Language"
+  "auth.language": "Language",
+  "demo.banner": "Public demo — anyone can see and change this data. Everything is reset every night.",
+  "demo.intro": "This is a public demo with an invented company. Look around and try everything.",
+  "demo.try": "Try the demo",
+  "demo.notReady": "The demo is being prepared. Please try again in a minute."
 }

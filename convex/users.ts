@@ -3,6 +3,7 @@ import type { Id } from "./_generated/dataModel.d.ts";
 import { mutation, query, internalMutation } from "./_generated/server";
 import type { MutationCtx, QueryCtx } from "./_generated/server";
 import { logAudit } from "./lib/audit.ts";
+import { refuseInDemo } from "./lib/demo.ts";
 
 export async function getUser(ctx: QueryCtx | MutationCtx, tokenIdentifier: string) {
   const user = await ctx.db
@@ -83,6 +84,11 @@ export const updateUser = mutation({
     const caller = await getUser(ctx, identity.tokenIdentifier);
     if (!caller || (caller.role !== "owner" && caller.role !== "manager")) {
       throw new ConvexError({ message: "Not authorized", code: "FORBIDDEN" });
+    }
+
+    // Public demo: nobody may lock others out.
+    if (args.role !== undefined || args.isActive !== undefined) {
+      refuseInDemo("Changing roles or switching people off");
     }
 
     // Only owners can change roles
@@ -283,6 +289,7 @@ export const deleteUser = mutation({
     if (!caller || caller.role !== "owner") {
       throw new ConvexError({ message: "Only owners can remove users", code: "FORBIDDEN" });
     }
+    refuseInDemo("Removing people");
 
     // Cannot delete yourself
     if (caller._id === args.userId) {

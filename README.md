@@ -114,7 +114,7 @@ business system on the internet.
 | Server and database | [Convex](https://www.convex.dev) — open source; use their free cloud or run it yourself |
 | Sign-in | Built in: email and password, scrypt-hashed, RS256 tokens. No outside login service |
 | Email | Optional. Add a free [Resend](https://resend.com) key to send reminders and receipts |
-| Tests | Vitest + convex-test, 128 tests covering the ledger, reports and sign-in rules |
+| Tests | Vitest + convex-test, 131 tests covering the ledger, reports and sign-in rules |
 
 Run the tests:
 

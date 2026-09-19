@@ -178,9 +178,37 @@ function SetupForm() {
   );
 }
 
+function DemoBox({ email, password }: { email: string; password: string }) {
+  const { t } = useTranslation();
+  const { signInWithPassword } = useAuth();
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const go = async () => {
+    setError(null);
+    setBusy(true);
+    try {
+      await signInWithPassword(email, password);
+    } catch (err) {
+      setError(errorKey(err, false));
+      setBusy(false);
+    }
+  };
+  return (
+    <div className="rounded-xl border border-amber-300 bg-amber-50 dark:bg-amber-900/20 dark:border-amber-800 p-4 space-y-3 text-center">
+      <p className="text-sm">{t("demo.intro")}</p>
+      <Button type="button" onClick={go} disabled={busy} className="w-full h-11 text-base cursor-pointer">
+        {busy ? t("auth.signingIn") : t("demo.try")}
+      </Button>
+      <p className="text-xs text-muted-foreground" dir="ltr">{email} · {password}</p>
+      {error && <p role="alert" className="text-sm text-destructive">{t(error)}</p>}
+    </div>
+  );
+}
+
 export default function SignInScreen() {
   const { t } = useTranslation();
   const status = useQuery(api.authStore.setupStatus);
+  const demo = useQuery(api.demo.status);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-primary/5 via-background to-accent/20 flex items-center justify-center px-4 py-10">
@@ -193,10 +221,19 @@ export default function SignInScreen() {
         </div>
         <LanguageSwitcher />
         <div className="bg-card border rounded-2xl shadow-sm p-6">
-          {status === undefined ? (
+          {status === undefined || demo === undefined ? (
             <div className="flex justify-center py-10"><Spinner className="w-8 h-8" /></div>
+          ) : demo.enabled && status.needsSetup ? (
+            // Public demo that has not been built yet: never offer "first-time
+            // setup" here, or a visitor could make themselves the owner.
+            <p className="text-center text-sm text-muted-foreground py-6">{t("demo.notReady")}</p>
           ) : status.needsSetup ? (
             <SetupForm />
+          ) : demo.enabled ? (
+            <div className="space-y-6">
+              <DemoBox email={demo.email} password={demo.password} />
+              <SignInForm />
+            </div>
           ) : (
             <SignInForm />
           )}

@@ -3,6 +3,14 @@ import { internal } from "./_generated/api";
 
 const crons = cronJobs();
 
+// Public demo only: wipe and rebuild the demo company every night at
+// 00:00 UTC (03:00 Doha). Does nothing unless DEMO_MODE=true.
+crons.daily(
+  "reset public demo",
+  { hourUTC: 0, minuteUTC: 0 },
+  internal.demoActions.reset
+);
+
 // Process recurring invoices and bills daily at 6:00 AM UTC
 crons.daily(
   "process recurring transactions",

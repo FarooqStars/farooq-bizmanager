@@ -104,6 +104,26 @@ Your data is in Convex. Use the backup and export options in the Convex dashboar
 
 ---
 
+## Running a public demo
+
+To put up a demo that anyone can try (like the official one), install with way A,
+then in the Convex dashboard → **Production → Settings → Environment Variables** add
+
+- Name: `DEMO_MODE`
+- Value: `true`
+
+and run **Functions → demoActions → reset** once. The demo company is built in a
+few seconds. From then on:
+
+- the sign-in page shows **Try the demo** (`demo@example.com` / `demo12345`),
+- every screen shows a "public demo" bar,
+- passwords, roles and removing people are locked, so no visitor can lock others out,
+- everything is wiped and rebuilt every night at 00:00 UTC.
+
+**Never set `DEMO_MODE` on an installation with real data** — the nightly reset deletes everything.
+
+---
+
 ## B. Your own server (for IT people)
 
 Run the Convex backend yourself and serve the website from any web server.
@@ -148,7 +168,7 @@ cd farooq-bizmanager
 pnpm install
 npx convex dev      # creates a development database and keeps it in sync
 pnpm dev            # in a second terminal — opens the site on http://localhost:5173
-pnpm test           # 128 tests
+pnpm test           # 131 tests
 ```
 
 Where things are:

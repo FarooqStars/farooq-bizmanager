@@ -47,6 +47,7 @@ const LANGUAGES = [
 
 export default function ProfilePage() {
   const currentUser = useQuery(api.users.getCurrentUser);
+  const demoStatus = useQuery(api.demo.status);
   const updateMyProfile = useMutation(api.users.updateMyProfile);
   const generateUploadUrl = useMutation(api.users.generateProfileUploadUrl);
 
@@ -369,7 +370,9 @@ export default function ProfilePage() {
       )}
 
       {/* Sign-in password */}
-      {currentUser && <ChangePasswordCard userId={currentUser._id} email={currentUser.email ?? ""} />}
+      {currentUser && !demoStatus?.enabled && (
+        <ChangePasswordCard userId={currentUser._id} email={currentUser.email ?? ""} />
+      )}
     </div>
   );
 }

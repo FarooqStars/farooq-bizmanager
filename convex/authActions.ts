@@ -33,6 +33,7 @@ import {
   normalizeEmail,
   isValidEmail,
 } from "./lib/authShared.ts";
+import { refuseInDemo } from "./lib/demo.ts";
 
 type Tokens = { token: string; refreshToken: string };
 
@@ -235,6 +236,7 @@ export const signOut = action({
 export const setUserPassword = action({
   args: { userId: v.id("users"), email: v.string(), password: v.string() },
   handler: async (ctx, args) => {
+    refuseInDemo("Changing passwords");
     const identity = await ctx.auth.getUserIdentity();
     if (!identity) throw new ConvexError({ message: "Not authenticated", code: "UNAUTHENTICATED" });
     const caller = await ctx.runQuery(internal.authStore.getUserByTokenIdentifier, {

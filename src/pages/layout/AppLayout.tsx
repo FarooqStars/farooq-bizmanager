@@ -11,6 +11,7 @@ import BottomTabBar from "@/components/bottom-tab-bar.tsx";
 import PageTransition from "@/components/page-transition.tsx";
 import LocaleSwitcher from "@/components/locale-switcher.tsx";
 import HelpButton from "@/components/help-button.tsx";
+import DemoBanner from "@/components/demo-banner.tsx";
 import { useTranslation } from "react-i18next";
 import {
   LayoutDashboard,
@@ -475,6 +476,7 @@ function AppLayoutInner() {
 
       {/* Main content */}
       <main className="flex-1 flex flex-col overflow-hidden">
+        <DemoBanner />
         {/* Mobile top bar */}
         <div className="md:hidden flex items-center gap-3 px-4 py-3 border-b bg-card/95 backdrop-blur-md sticky top-0 z-30">
           <button
